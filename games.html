@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS- Game01</title>
+    <link rel="shortcut icon" href="img/Desktop-Black-Folder-icon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+   
+
+</head>
+<body class="second">
+
+  <div class="Main">
+  <div id="audio">
+
+    <audio  loop autoplay>
+
+      <source src="audio/magic-in-the-air-43177.mp3" type="audio/mpeg">
+      <button>Play</button>
+    </audio>
+   </div>
+    
+    <h3 id="magicnum"><center>Guess The Magic Number</center></h3>  
+
+    <img id="magicimg01" src="img/1220963497spinning-transparent-heart-animation61.gif">      <img id="magicimg02" src="img/coin-flip-54.gif">
+    
+    <h5 id="sco"><span id="sco"></span></h5>            <h4 id="lo"><span id="life"></span></h4>
+
+    <h1 id="gmq"><center>?</center></h1><h3 id="he">🪄Guess a number between 1-20</h3>
+  
+
+   
+
+   <center><input id="enter01" type="text"></center> 
+
+    <button id="btngg01">Check</button>
+   
+
+    <button id="btngg02">Reset</button> 
+
+    <a href="index.html">
+      <center><button id="back01">Back ⇨</button></center> 
+  </a>
+
+
+
+    <h2></h2>
+
+
+  </div>
+
+
+
+
+    <script>
+
+      let magicNumber = Math.trunc(Math.random()*20);
+      console.log(magicNumber);
+
+      let life = 5;
+      document.getElementById('life').innerHTML = life;
+
+      let score = 0;
+      document.getElementById('sco').innerHTML = score;
+
+      function playSound(soundClip) {
+           
+           let audio = new Audio(soundClip)
+
+           audio.play()
+
+           console.log(audio)
+       }
+
+       playSound('audio/correct.mp3')
+       playSound('audio/Over.wav')
+       playSound('audio/victory.wav')
+       playSound('audio/wrong.mp3')
+
+
+
+
+      
+      document.getElementById('btn01').addEventListener('click', function(){
+
+      let userAnswer = +document.querySelector('input').value;
+
+     if(userAnswer == magicNumber){
+
+    if(score < 30){
+
+        document.querySelector('h2').innerHTML = "you got it right";
+        document.querySelector('body').style.backgroundColor = 'yellow';
+        document.querySelector('h1').innerHTML = magicNumber;
+
+        playSound('audio/correct.mp3')
+
+        score = score + 10;
+        document.getElementById('sco').innerHTML = score;
+
+    }else{
+
+        document.querySelector('h2').innerHTML = "Congratulations";
+        document.querySelector('body').style.backgroundColor = '#FFB6C1';
+
+        playSound('audio/victory.wav')
+
+        document.querySelector('input').disabled = true;
+        document.getElementById('btn01').disabled = true;
+
+    }
+
+}else{
+       
+    if(life>1){
+
+        document.querySelector('h2').innerHTML = (userAnswer > magicNumber) ? "That's too high" : "That's too law";
+        document.querySelector('body').style.backgroundColor = (userAnswer > magicNumber) ? 'green' : 'orange';
+        life --;
+        document.getElementById('life').innerHTML = life;
+        playSound('audio/wrong.mp3')
+      
+
+
+
+    }else if(userAnswer !== magicNumber){
+
+        document.querySelector('h2').innerHTML = "GAME OVER";
+        document.querySelector('body').style.backgroundColor = '#F75D59';
+        document.querySelector('span').innerHTML = 0;
+        document.querySelector('input').disabled = true;
+        document.getElementById('btn01').disabled = true;
+        playSound('audio/Over.wav')
+        document.querySelector('audio').diabled = true;
+
+    }
+  }
+     
+     
+      
+
+
+  document.getElementById('btn02').addEventListener('click', function(){
+
+  magicNumber = Math.trunc(Math.random()*20);
+
+  console.log(magicNumber);
+
+  document.querySelector('body').style.backgroundColor = '';
+  document.querySelector('input').value = '';
+  document.querySelector('h2').innerHTML = '';
+
+
+  life = 5;
+
+  document.getElementById('life').innerHTML = '5';
+  document.querySelector('h1').innerHTML = '?';
+
+
+           
+      })   
+})
+
+
+    </script>
+
+
+</body>
+</html>
